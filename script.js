@@ -1,3 +1,51 @@
+// Matrix Rain Effect
+class MatrixRain {
+    constructor() {
+        this.canvas = document.getElementById('matrix-bg');
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+
+        this.chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        this.fontSize = 16;
+        this.columns = this.canvas.width / this.fontSize;
+        this.drops = Array(Math.floor(this.columns)).fill(1);
+
+        window.addEventListener('resize', () => this.resize());
+        this.draw();
+    }
+
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.columns = this.canvas.width / this.fontSize;
+        this.drops = Array(Math.floor(this.columns)).fill(1);
+    }
+
+    draw() {
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.ctx.fillStyle = '#00ff41';
+        this.ctx.font = this.fontSize + 'px monospace';
+
+        for (let i = 0; i < this.drops.length; i++) {
+            const char = this.chars[Math.floor(Math.random() * this.chars.length)];
+            const x = i * this.fontSize;
+            const y = this.drops[i] * this.fontSize;
+
+            this.ctx.fillText(char, x, y);
+
+            if (y > this.canvas.height && Math.random() > 0.975) {
+                this.drops[i] = 0;
+            }
+            this.drops[i]++;
+        }
+
+        requestAnimationFrame(() => this.draw());
+    }
+}
+
 class SwipeableCards {
     constructor() {
         this.cards = document.querySelectorAll('.card');
@@ -131,5 +179,6 @@ class SwipeableCards {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    new MatrixRain();
     new SwipeableCards();
 });
