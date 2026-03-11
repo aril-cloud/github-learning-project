@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.instructions {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-size: 0.9em;
+}
+
+.card-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-bottom: 30px;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    cursor: grab;
+    transition: transform 0.1s ease;
+    user-select: none;
+}
+
+.card:active {
+    cursor: grabbing;
+}
+
+.card.swiping {
+    transition: none;
+}
+
+.card.removed {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 40px;
+}
+
+.card-content h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card-content p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.emoji {
+    font-size: 5em;
+}
+
+.card::before {
+    content: 'LIKE';
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #4caf50;
+    border: 5px solid #4caf50;
+    padding: 10px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: rotate(20deg);
+    transition: opacity 0.1s ease;
+}
+
+.card::after {
+    content: 'NOPE';
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #f44336;
+    border: 5px solid #f44336;
+    padding: 10px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: rotate(-20deg);
+    transition: opacity 0.1s ease;
+}
+
+.card.like::before {
+    opacity: 1;
+}
+
+.card.nope::after {
+    opacity: 1;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn-nope {
+    background: #f44336;
+    color: white;
+}
+
+.btn-like {
+    background: #4caf50;
+    color: white;
+}
+
+.status {
+    color: white;
+    font-size: 1.2em;
+    min-height: 30px;
+}
