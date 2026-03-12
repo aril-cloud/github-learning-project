@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl Player</title>
+    <link rel="stylesheet" href="vinyl-styles.css">
+</head>
+<body>
+    <div class="player-container">
+        <h1 class="title">VINYL PLAYER</h1>
+
+        <!-- Turntable area -->
+        <div class="turntable">
+            <div class="tonearm" id="tonearm"></div>
+            <div class="vinyl-spinner" id="vinylSpinner">
+                <div class="vinyl-label"></div>
+            </div>
+        </div>
+
+        <!-- Album browser -->
+        <div class="browser">
+            <button class="nav-btn prev" id="prevBtn">‹</button>
+
+            <div class="album-container">
+                <div class="album" data-index="0">
+                    <div class="sleeve">
+                        <img src="cds/download.png" alt="Album 1">
+                        <div class="vinyl" data-album="0">
+                            <div class="vinyl-groove"></div>
+                            <div class="vinyl-label-small"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="album" data-index="1">
+                    <div class="sleeve">
+                        <img src="cds/download (1).png" alt="Album 2">
+                        <div class="vinyl" data-album="1">
+                            <div class="vinyl-groove"></div>
+                            <div class="vinyl-label-small"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="album" data-index="2">
+                    <div class="sleeve">
+                        <img src="cds/2.png" alt="Album 3">
+                        <div class="vinyl" data-album="2">
+                            <div class="vinyl-groove"></div>
+                            <div class="vinyl-label-small"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-btn next" id="nextBtn">›</button>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" id="stopBtn">⏹</button>
+            <div class="now-playing" id="nowPlaying">Select an album to play</div>
+        </div>
+    </div>
+
+    <script src="vinyl-script.js"></script>
+</body>
+</html>
