@@ -236,6 +236,8 @@ body[data-album="2"] {
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
 }
 
 .vinyl {
@@ -293,7 +295,8 @@ body[data-album="2"] {
 }
 
 .sleeve.playing .vinyl {
-    transform: translateX(320px) translateY(-10px) scale(1.05);
+    transform: translateX(0px) translateY(-550px) scale(1.05);
+    z-index: 10;
 }
 
 /* Navigation Buttons */
