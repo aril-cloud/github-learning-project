@@ -228,16 +228,12 @@ body[data-album="2"] {
     background: radial-gradient(circle, #1a1a1a 30%, #0a0a0a 100%);
     border-radius: 50%;
     top: 10px;
-    left: 10px;
+    left: -20px;
     box-shadow:
         0 5px 20px rgba(0, 0, 0, 0.8),
         inset 0 0 30px rgba(255, 255, 255, 0.1);
-    transition: transform 0.6s ease, left 0.6s ease, top 0.6s ease;
+    transition: all 0.6s ease;
     z-index: 1;
-}
-
-.vinyl.spinning {
-    animation: spin 2s linear infinite;
 }
 
 .vinyl-groove {
@@ -280,8 +276,13 @@ body[data-album="2"] {
 }
 
 .sleeve.playing .vinyl {
-    transform: translateX(0px) translateY(-550px) scale(1.05);
+    left: 10px;
+    top: -540px;
     z-index: 10;
+}
+
+.sleeve.playing .vinyl.spinning {
+    animation: spin 2s linear infinite;
 }
 
 /* Navigation Buttons */
