@@ -10,9 +10,9 @@ class VinylPlayer {
         this.nowPlaying = document.getElementById('nowPlaying');
 
         this.albumNames = [
-            'Album One',
-            'Album Two',
-            'Album Three'
+            'Branch One',
+            'Branch Two',
+            'Branch Three'
         ];
 
         this.init();
@@ -154,7 +154,7 @@ class VinylPlayer {
             sleeve.classList.remove('playing');
         }
 
-        this.nowPlaying.textContent = 'Select an album to play';
+        this.nowPlaying.textContent = 'Select branch';
         this.isPlaying = false;
         this.currentAlbum = null;
     }

@@ -198,8 +198,8 @@ body[data-album="2"] {
     transform-style: preserve-3d;
 }
 
-.album[data-position="0"] .sleeve:hover {
-    transform: scale(1.08) translateZ(20px);
+.album[data-position="0"] .sleeve img:hover {
+    transform: scale(1.05);
 }
 
 .album:not([data-position="0"]) .sleeve {
@@ -219,6 +219,7 @@ body[data-album="2"] {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 2;
+    transition: transform 0.3s ease;
 }
 
 .vinyl {
