@@ -19,23 +19,32 @@ class VinylPlayer {
     }
 
     init() {
-        // Set up album hover and click events
+        // Set up album click events
         this.albums.forEach((album, index) => {
             const sleeve = album.querySelector('.sleeve');
-
-            // Hover to navigate
-            album.addEventListener('mouseenter', () => {
-                if (index !== this.currentIndex && !this.isPlaying) {
-                    this.navigateToIndex(index);
-                }
-            });
-
             // Click center album to play
             sleeve.addEventListener('click', () => {
                 if (index === this.currentIndex) {
                     this.playAlbum(index);
                 }
             });
+        });
+
+        // Mouse-based elastic navigation
+        document.addEventListener('mousemove', (e) => {
+            if (this.isPlaying) return;
+
+            const windowWidth = window.innerWidth;
+            const mouseX = e.clientX;
+            const position = mouseX / windowWidth; // 0 to 1
+
+            // Map position to album index
+            const totalAlbums = this.albums.length;
+            const targetIndex = Math.round(position * (totalAlbums - 1));
+
+            if (targetIndex !== this.currentIndex) {
+                this.navigateToIndex(targetIndex);
+            }
         });
 
         // Stop button
