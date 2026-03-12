@@ -42,6 +42,11 @@ class VinylPlayer {
     }
 
     navigate(direction) {
+        // If currently playing, stop first
+        if (this.isPlaying) {
+            this.stop();
+        }
+
         this.currentIndex += direction;
 
         // Wrap around
@@ -52,6 +57,10 @@ class VinylPlayer {
     }
 
     navigateToIndex(index) {
+        // If currently playing, stop first
+        if (this.isPlaying) {
+            this.stop();
+        }
         this.currentIndex = index;
         this.updateView();
     }
@@ -103,18 +112,16 @@ class VinylPlayer {
 
         const album = this.albums[index];
         const sleeve = album.querySelector('.sleeve');
+        const vinyl = album.querySelector('.vinyl');
 
         // Add playing class to trigger vinyl slide-out animation
         sleeve.classList.add('playing');
 
-        // Wait for vinyl to slide out, then show it on turntable and start spinning
+        // Wait for vinyl to slide up, then start spinning
         setTimeout(() => {
-            this.vinylSpinner.classList.add('visible');
-            setTimeout(() => {
-                this.vinylSpinner.classList.add('spinning');
-                this.tonearm.classList.add('playing');
-                this.nowPlaying.textContent = `Now Playing: ${this.albumNames[index]}`;
-            }, 500);
+            vinyl.classList.add('spinning');
+            this.tonearm.classList.add('playing');
+            this.nowPlaying.textContent = `Now Playing: ${this.albumNames[index]}`;
         }, 600);
     }
 
@@ -122,23 +129,21 @@ class VinylPlayer {
         if (!this.isPlaying) return;
 
         // Stop spinning and remove tonearm
-        this.vinylSpinner.classList.remove('spinning');
         this.tonearm.classList.remove('playing');
 
-        // Wait a bit, then hide spinner and return vinyl to sleeve
-        setTimeout(() => {
-            this.vinylSpinner.classList.remove('visible');
+        if (this.currentAlbum !== null) {
+            const album = this.albums[this.currentAlbum];
+            const sleeve = album.querySelector('.sleeve');
+            const vinyl = album.querySelector('.vinyl');
 
-            if (this.currentAlbum !== null) {
-                const album = this.albums[this.currentAlbum];
-                const sleeve = album.querySelector('.sleeve');
-                sleeve.classList.remove('playing');
-            }
+            // Stop spinning and return to sleeve
+            vinyl.classList.remove('spinning');
+            sleeve.classList.remove('playing');
+        }
 
-            this.nowPlaying.textContent = 'Select an album to play';
-            this.isPlaying = false;
-            this.currentAlbum = null;
-        }, 500);
+        this.nowPlaying.textContent = 'Select an album to play';
+        this.isPlaying = false;
+        this.currentAlbum = null;
     }
 }
 
