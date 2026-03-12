@@ -6,7 +6,6 @@ class VinylPlayer {
         this.currentAlbum = null;
 
         this.vinylSpinner = document.getElementById('vinylSpinner');
-        this.tonearm = document.getElementById('tonearm');
         this.nowPlaying = document.getElementById('nowPlaying');
 
         this.albumNames = [
@@ -133,16 +132,12 @@ class VinylPlayer {
         // Wait for vinyl to slide up, then start spinning
         setTimeout(() => {
             vinyl.classList.add('spinning');
-            this.tonearm.classList.add('playing');
             this.nowPlaying.textContent = `Now Playing: ${this.albumNames[index]}`;
         }, 600);
     }
 
     stop() {
         if (!this.isPlaying) return;
-
-        // Stop spinning and remove tonearm
-        this.tonearm.classList.remove('playing');
 
         if (this.currentAlbum !== null) {
             const album = this.albums[this.currentAlbum];
