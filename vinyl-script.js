@@ -22,7 +22,14 @@ class VinylPlayer {
         // Set up album click events
         this.albums.forEach((album, index) => {
             const sleeve = album.querySelector('.sleeve');
-            sleeve.addEventListener('click', () => this.playAlbum(index));
+            sleeve.addEventListener('click', () => {
+                if (index === this.currentIndex) {
+                    this.playAlbum(index);
+                } else {
+                    // Navigate to this album if not current
+                    this.navigateToIndex(index);
+                }
+            });
         });
 
         // Navigation buttons
@@ -35,8 +42,6 @@ class VinylPlayer {
     }
 
     navigate(direction) {
-        if (this.isPlaying) return; // Don't navigate while playing
-
         this.currentIndex += direction;
 
         // Wrap around
@@ -46,19 +51,33 @@ class VinylPlayer {
         this.updateView();
     }
 
+    navigateToIndex(index) {
+        this.currentIndex = index;
+        this.updateView();
+    }
+
     updateView() {
+        // Update background color based on selected album
+        document.body.setAttribute('data-album', this.currentIndex);
+
+        // Update coverflow positions
         this.albums.forEach((album, index) => {
-            if (index === this.currentIndex) {
-                album.classList.remove('hidden');
-                album.style.display = 'block';
-            } else {
-                album.classList.add('hidden');
-                // Hide other albums completely for cleaner view
-                setTimeout(() => {
-                    if (index !== this.currentIndex) {
-                        album.style.display = 'none';
-                    }
-                }, 300);
+            const position = index - this.currentIndex;
+
+            // Remove old position attributes
+            album.removeAttribute('data-position');
+
+            // Set new position
+            if (position === 0) {
+                album.setAttribute('data-position', '0');
+            } else if (position === -1) {
+                album.setAttribute('data-position', '-1');
+            } else if (position === 1) {
+                album.setAttribute('data-position', '1');
+            } else if (position < -1) {
+                album.setAttribute('data-position', 'hidden-left');
+            } else if (position > 1) {
+                album.setAttribute('data-position', 'hidden-right');
             }
         });
     }

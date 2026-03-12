@@ -13,6 +13,19 @@ body {
     align-items: center;
     padding: 20px;
     color: #fff;
+    transition: background 1s ease;
+}
+
+body[data-album="0"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body[data-album="1"] {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+body[data-album="2"] {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
 .player-container {
@@ -143,23 +156,55 @@ body {
     justify-content: center;
     gap: 30px;
     margin-bottom: 40px;
+    perspective: 2000px;
 }
 
 .album-container {
     display: flex;
-    gap: 40px;
-    overflow: hidden;
+    gap: 0;
     position: relative;
+    width: 900px;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
 }
 
 .album {
-    flex-shrink: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: absolute;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
 }
 
-.album.hidden {
-    transform: scale(0.8);
-    opacity: 0.3;
+/* Coverflow positions */
+.album[data-position="-1"] {
+    transform: translateX(-350px) translateZ(-200px) rotateY(45deg) scale(0.8);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.album[data-position="0"] {
+    transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
+    opacity: 1;
+    z-index: 3;
+}
+
+.album[data-position="1"] {
+    transform: translateX(350px) translateZ(-200px) rotateY(-45deg) scale(0.8);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.album[data-position="hidden-left"] {
+    transform: translateX(-700px) translateZ(-400px) rotateY(60deg) scale(0.5);
+    opacity: 0;
+    z-index: 0;
+}
+
+.album[data-position="hidden-right"] {
+    transform: translateX(700px) translateZ(-400px) rotateY(-60deg) scale(0.5);
+    opacity: 0;
+    z-index: 0;
 }
 
 .sleeve {
@@ -167,12 +212,22 @@ body {
     height: 300px;
     position: relative;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
-.sleeve:hover {
-    transform: scale(1.05);
+.album[data-position="0"] .sleeve:hover {
+    transform: scale(1.08) translateZ(20px);
+}
+
+.album:not([data-position="0"]) .sleeve {
+    cursor: pointer;
+}
+
+.album[data-position="-1"] .sleeve:hover,
+.album[data-position="1"] .sleeve:hover {
+    filter: brightness(1.2);
 }
 
 .sleeve img {
